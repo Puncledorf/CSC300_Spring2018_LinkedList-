@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private EditText newNumberET;
+    private EditText index;
     //private Button addFrontButton;
     //private Button addEndButton;
     private ViewGroup linkedListContainer;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.newNumberET = (EditText) this.findViewById((R.id.newNumberET));
+        this.index = (EditText) this.findViewById(R.id.index);
         //this.addFrontButton = (Button) this.findViewById(R.id.button);
         //this.addEndButton = (Button) this.findViewById(R.id.button2);
         this.linkedListContainer = (ViewGroup) this.findViewById(R.id.linkedListContainer);
@@ -78,7 +80,12 @@ public class MainActivity extends AppCompatActivity {
     }
     public void addIndexButtonClicked(View v){
         try {
-            int value = this.ll.addIndex();
+            String temp = this.newNumberET.getText().toString();
+            this.newNumberET.setText("");
+            String temp2 = this.index.getText().toString;
+            this.index.setText("");
+            //int value = this.ll.addIndex(Integer.parseInt(temp) , Integer.parseInt(temp2));
+            this.ll.addFront(Integer.parseInt(temp));
             this.ll.display();
         }
         catch (Exception e){
@@ -87,7 +94,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void removeIndexButtonClicked (View v){
         try {
-            int value = this.ll.removeIndex;
+            String temp2 = this.index.getText().toString;
+            this.index.setText("");
+            int value = this.ll.removeIndex(Integer.parseInt(temp2));
             this.ll.display();
         }
         catch (Exception e){
