@@ -2,57 +2,96 @@ package com.example.awesomefat.csc300_spring2018_linkedlist;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    private EditText newNumberET;
+    //private Button addFrontButton;
+    //private Button addEndButton;
+    private ViewGroup linkedListContainer;
+    private LinkedList ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.newNumberET = (EditText) this.findViewById((R.id.newNumberET));
+        //this.addFrontButton = (Button) this.findViewById(R.id.button);
+        //this.addEndButton = (Button) this.findViewById(R.id.button2);
+        this.linkedListContainer = (ViewGroup) this.findViewById(R.id.linkedListContainer);
 
-        LinkedList ll = new LinkedList();
+        this.ll = new LinkedList(this.linkedListContainer, this);
         ll.addFront(2);
         ll.addFront(5);
         ll.addFront(7);
         ll.addEnd(9);
         ll.display();
-        ScrollView sv = (ScrollView)(findViewById(R.id.scroll));
-        LinearLayout lin = new LinearLayout(this);
-        lin.setOrientation(LinearLayout.VERTICAL);
-        sv.addView(lin);
-        Button addFront = (findViewById(R.id.addFront));
-        addFront.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+    }
 
-            }
-            //ll.addFront(payloadtxt.text);
-            //TextView tv = new TextView(MainActivity);
-            //tv.setText(payload.txt);
-            //lin.addView(tv);
-        });
-        Button addEnd = findViewById(R.id.addEnd);
-        addEnd.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+    /*public void genericButtonOnClick(View v){
+        if(v==this.addFrontButton){
+            System.out.println("Add Front Button Pressed");
+        }
+        else {
+            System.out.println("Add End Button Pressed")
+        }
+    }*/
+    public void addFrontButtonClicked(View v)
+    {
+        String temp = this.newNumberET.getText().toString();
+        this.newNumberET.setText("");
+        this.ll.addFront(Integer.parseInt(temp));
+        this.ll.display();
+    }
 
-            }
-            //ll.addEnd(payloadtxt.text);
-            //ll.addFront(payloadtxt.text);
-            //TextView tv = new TextView(MainActivity);
-            //tv.setText(payload.txt);
-            //lin.addView(tv);
-        });
+    public void addEndButtonClicked(View v)
+    {
+        String temp = this.newNumberET.getText().toString();
+        this.newNumberET.setText("");
+        this.ll.addEnd(Integer.parseInt(temp));
+        this.ll.display();
+    }
+    public void removeFrontButtonClicked (View v){
+        try {
+            int value = this.ll.removeFront();
+            this.ll.display();
 
+        }
+        catch(Exception e){}
 
+    }
+    public void removeEndButtonClicked (View v){
+        try {
+            int value = this.ll.removeEnd();
+            this.ll.display();
+        }
+        catch (Exception e){
 
+        }
+    }
+    public void addIndexButtonClicked(View v){
+        try {
+            int value = this.ll.addIndex();
+            this.ll.display();
+        }
+        catch (Exception e){
 
+        }
+    }
+    public void removeIndexButtonClicked (View v){
+        try {
+            int value = this.ll.removeIndex;
+            this.ll.display();
+        }
+        catch (Exception e){
 
-
+        }
     }
 }
