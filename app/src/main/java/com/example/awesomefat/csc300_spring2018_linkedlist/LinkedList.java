@@ -84,26 +84,6 @@ public class LinkedList
         }
         else{
             while(nodeFollow!=null){
-                Node temp = node2Replace;
-                node2Replace.getPayload() = payload;
-                Node n = new Node(payload);
-
-                //add to front of list
-                if(this.head == null)
-                {
-                    this.head = n;
-                }
-                else
-                {
-                    //not dealing with the empty list
-                    n.setNextNode(this.head);
-                    this.head = n;
-                }
-                //up
-                TextView tv = new TextView (this.theContext);
-                tv.setText("" + payload);
-                tv.setGravity(Gravity.CENTER);
-                this.linkedListContainer.addView(tv,0);
             }
         }
 
@@ -111,10 +91,38 @@ public class LinkedList
 
 
     public int removeIndex(int index) throws Exception{
-        if(this.head != null){
+        if (this.head == null) {
+            Toast.makeText(this.theContext, "Empty List", Toast.LENGTH_SHORT).show();
+            throw new Exception("Empty List");
+        }
+        Node temp = this.head;
+        if (index == 0)
+        {
+            head = temp.getNextNode();   // Change head
+            return temp.getNextNode().getPayload();
+        }
+
+        // Find previous node of the node to be deleted
+        for (int i=0; temp!=null && i<index-1; i++)
+            temp = temp.getNextNode();
+
+        if (temp == null || temp.getNextNode() == null)
+            return temp.getPayload();
+
+        // Node temp->next is the node to be deleted
+        // Store pointer to the next of node to be deleted
+        Node next = temp.getNextNode().getNextNode();
+
+        temp.setNextNode(next);
+        return  temp.getPayload();
+        // Unlink the deleted node from list
+        /*if(this.head != null){
             Node node2Remove = this.head;
             while(node2Remove.getNextNode() != null && index) {
                 node2Remove = node2Remove.getNextNode();
+            }
+            if(node2Remove.getNextNode() == null){
+                this.removeEnd();
             }
             if(node2Remove == this.head){
                 //we have a one list
@@ -135,7 +143,8 @@ public class LinkedList
             //empty list
             Toast.makeText(this.theContext, "Index does not exist", Toast.LENGTH_SHORT).show();;
             throw new  Exception("Index does not exist");
-        }
+        }*/
+
     }
 
 
